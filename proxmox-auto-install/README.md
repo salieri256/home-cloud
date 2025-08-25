@@ -7,8 +7,7 @@ Proxmox VEには自動インストール機能があります[^1]．
 
 ## Proxmox VEインストーラのダウンロード
 
-ここでは`Proxmox VE 9.0 ISO Installer`を使用します（2025-08-26T00:00:00+0900 時点で最新です）．
-以下のコマンドを実行してください．
+ここでは`Proxmox VE 9.0 ISO Installer`を使用します．
 
 ```shell
 wget -P images https://enterprise.proxmox.com/iso/proxmox-ve_9.0-1.iso
@@ -18,8 +17,7 @@ wget -P images https://enterprise.proxmox.com/iso/proxmox-ve_9.0-1.iso
 
 ## 自動インストール用isoイメージの作成
 
-ISO作成ツールとして`proxmox-auto-install-assistant`があります[^2]．
-ツールを使用できるようにするため，以下のコマンドを実行してください．
+ISO作成ツールとして`proxmox-auto-install-assistant`を使用します[^2]．
 権限がないよ！と言われたりしたら，適宜`sudo`してください．
 
 ```shell
@@ -39,7 +37,6 @@ docker run --rm -it -v ./:/workspace proxmox-auto-install
 ---
 
 各PVEノード用にisoイメージを作成します．
-以下のコマンドを実行してください．
 
 ```shell
 proxmox-auto-install-assistant prepare-iso images/proxmox-ve_9.0-1.iso --fetch-from iso --answer-file answers/hikari-answer.toml --output dist/hikari-pve_9.0-1.iso
@@ -49,12 +46,10 @@ proxmox-auto-install-assistant prepare-iso images/proxmox-ve_9.0-1.iso --fetch-f
 
 ## インストールメディアの作成
 
-インストールメディアを作成します．
 ここでは`rufus-4.9p`を使用します．
 rufusは[ここ](https://rufus.ie/ja/)からダウンロードできます．
 
-インストールメディアにするデバイスと，先程作成したisoイメージを選択してください．
-ここでは，16GBのUSBメモリに，PVEノード`hikari`用のisoイメージを書き込みます．
+先程作成したisoイメージを選択します．
 
 ![](./rufus.png)
 
