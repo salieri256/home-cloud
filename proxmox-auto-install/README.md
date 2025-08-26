@@ -15,7 +15,7 @@ wget -P images https://enterprise.proxmox.com/iso/proxmox-ve_9.0-1.iso
 
 [ここ](https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso)からもダウンロードできます．
 
-## 自動インストール用isoイメージの作成
+## 自動インストール用ISOイメージの作成
 
 ISO作成ツールとして`proxmox-auto-install-assistant`を使用します．
 権限がないよ！と言われたりしたら，適宜`sudo`してください．
@@ -36,7 +36,7 @@ docker run --rm -it -v ./:/workspace proxmox-auto-install
 
 ---
 
-各PVEノード用にisoイメージを作成します．
+各PVEノードISOイメージを作成します．
 
 ```shell
 proxmox-auto-install-assistant prepare-iso images/proxmox-ve_9.0-1.iso --fetch-from iso --answer-file answers/hikari-answer.toml --output dist/hikari-pve_9.0-1.iso
@@ -44,14 +44,67 @@ proxmox-auto-install-assistant prepare-iso images/proxmox-ve_9.0-1.iso --fetch-f
 proxmox-auto-install-assistant prepare-iso images/proxmox-ve_9.0-1.iso --fetch-from iso --answer-file answers/nonoka-answer.toml --output dist/nonoka-pve_9.0-1.iso
 ```
 
+### Linuxカーネルパラメータを編集する場合
+
+Linuxカーネルパラメータを編集する必要がある場合は，もうひと手間必要です．
+ここではPVEノード`nonoka`用に設定を変更します．
+`nonoka`が搭載しているハードウェアRAID`PRAID CP400i`を使用するには，PCIパススルーを設定する必要があるからです．
+
+ISOイメージをマウントしても読み取り専用になってしまうので，中身を別のイメージにコピーしてそれを編集することにします．
+まず，空のイメージを作成し，`/media/writable`にマウントします．
+
+```shell
+dd if=/dev/zero of=~/writable.img bs=10M count=1024
+mkfs.ext4 ~/writable.img
+sudo mkdir /media/writable
+sudo mount -o loop ~/writable.img /media/writable
+```
+
+ISOイメージも`/media/iso`にマウントします．中身を`/media/writable`にコピーしておきます．
+
+```shell
+sudo mkdir /media/iso
+sudo mount -o loop dist/nonoka-pve_9.0-1.iso /media/iso
+sudo cp -r /media/iso/* /media/writable/
+```
+
+さて，Linuxカーネルパラメータを編集していきましょう．
+`/media/writable/boot/grub/grub.cfg`をエディタで開きます．
+パーミッションが`-r--r--r--`になっているので，書き込み権限を与えておきます．
+
+```shell
+sudo chmod +w /media/writable/boot/grub/grub.cfg
+sudo nano /media/writable/boot/grub/grub.cfg
+```
+
+`/media/writable/boot/grub/grub.cfg`の52行目に，`linux`から始まる項目があります．
+この末尾に`intel_iommu=on iommu=pt`を追加してあげます．
+下にも似たような記述がありますが，こちらは自動インストール時には適用されないのでお間違えの無いよう．
+
+![](./docs/grub-before.png)
+
+![](./docs/grub-after.png)
+
+編集は以上です．あと一息です．
+
+編集済みの内容から，再びISOイメージを作成します．
+`mkisofs`コマンドを使いましょう．
+
+```shell
+sudo apt install mkisofs
+mkisofs -o nonoka-pve_9.0-1-edited.iso /media/writable
+```
+
+これで，Linuxカーネルパラメータを編集した`nonoka-pve_9.0-1-edited.iso`が完成しました．
+
 ## インストールメディアの作成
 
 ここでは`rufus-4.9p`を使用します．
 rufusは[ここ](https://rufus.ie/ja/)からダウンロードできます．
 
-先程作成したisoイメージを選択します．
+先程作成ISOイメージを選択します．
 
-![](./rufus.png)
+![](./docs/rufus.png)
 
 WSL2上で作業した方は，エクスプローラからWSL2にアクセスしてください．
 アドレスバーに`\\wsl$`を入力するといいかもしれません．
