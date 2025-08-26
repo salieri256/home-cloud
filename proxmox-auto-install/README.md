@@ -15,7 +15,7 @@ wget -P images https://enterprise.proxmox.com/iso/proxmox-ve_9.0-1.iso
 
 [ここ](https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso)からもダウンロードできます．
 
-## 自動インストール用isoイメージの作成
+## 自動インストール用ISOイメージの作成
 
 ISO作成ツールとして`proxmox-auto-install-assistant`を使用します．
 権限がないよ！と言われたりしたら，適宜`sudo`してください．
@@ -36,7 +36,7 @@ docker run --rm -it -v ./:/workspace proxmox-auto-install
 
 ---
 
-各PVEノード用にisoイメージを作成します．
+各PVEノードISOイメージを作成します．
 
 ```shell
 proxmox-auto-install-assistant prepare-iso images/proxmox-ve_9.0-1.iso --fetch-from iso --answer-file answers/hikari-answer.toml --output dist/hikari-pve_9.0-1.iso
@@ -50,7 +50,7 @@ Linuxカーネルパラメータを編集する必要がある場合は，もう
 ここではPVEノード`nonoka`用に設定を変更します．
 `nonoka`が搭載しているハードウェアRAID`PRAID CP400i`を使用するには，PCIパススルーを設定する必要があるからです．
 
-isoイメージをマウントしても読み取り専用になってしまうので，中身を別のイメージにコピーしてそれを編集することにします．
+ISOイメージをマウントしても読み取り専用になってしまうので，中身を別のイメージにコピーしてそれを編集することにします．
 まず，空のイメージを作成し，`/media/writable`にマウントします．
 
 ```shell
@@ -60,7 +60,7 @@ sudo mkdir /media/writable
 sudo mount -o loop ~/writable.img /media/writable
 ```
 
-isoイメージも`/media/iso`にマウントします．中身を`/media/writable`にコピーしておきます．
+ISOイメージも`/media/iso`にマウントします．中身を`/media/writable`にコピーしておきます．
 
 ```shell
 sudo mkdir /media/iso
@@ -87,7 +87,7 @@ sudo nano /media/writable/boot/grub/grub.cfg
 
 編集は以上です．あと一息です．
 
-編集済みの内容から，再びisoイメージを作成します．
+編集済みの内容から，再びISOイメージを作成します．
 `mkisofs`コマンドを使いましょう．
 
 ```shell
@@ -102,7 +102,7 @@ mkisofs -o nonoka-pve_9.0-1-edited.iso /media/writable
 ここでは`rufus-4.9p`を使用します．
 rufusは[ここ](https://rufus.ie/ja/)からダウンロードできます．
 
-先程作成したisoイメージを選択します．
+先程作成ISOイメージを選択します．
 
 ![](./docs/rufus.png)
 
