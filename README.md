@@ -4,7 +4,9 @@
 
 - [Proxmox VE の自動インストール](./proxmox-auto-install/)
 
-## 備考
+## 構成
+
+![](./diagrams/home-infra.drawio.svg)
 
 ### ハードウェア構成
 
