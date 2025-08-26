@@ -18,8 +18,8 @@
 
 #### Proxmox VE クラスタ
 
-|FQDN|IPアドレス|
-|-|-|
-|hikari.home-cloud.internal|192.168.30.2/24|
-|tairitsu.home-cloud.internal|192.168.30.3/24|
-|nonoka.home-cloud.internal|192.168.30.4/24|
+|ノード名|FQDN|IPアドレス|
+|-|-|-|
+|hikari|hikari.home-cloud.internal|192.168.30.2/24|
+|tairitsu|tairitsu.home-cloud.internal|192.168.30.3/24|
+|nonoka|nonoka.home-cloud.internal|192.168.30.4/24|
