@@ -1,6 +1,6 @@
 # Proxmox VEの自動インストール
 
-Proxmox VEには自動インストール機能があります[^1]．
+Proxmox VEには自動インストール機能があります．
 インストーラと対話して手動で設定をするアレを，応答ファイルによって自動化できます．
 
 筆者はWindows 11ユーザなので，WSL2上で作業していきます．
@@ -17,7 +17,7 @@ wget -P images https://enterprise.proxmox.com/iso/proxmox-ve_9.0-1.iso
 
 ## 自動インストール用isoイメージの作成
 
-ISO作成ツールとして`proxmox-auto-install-assistant`を使用します[^2]．
+ISO作成ツールとして`proxmox-auto-install-assistant`を使用します．
 権限がないよ！と言われたりしたら，適宜`sudo`してください．
 
 ```shell
@@ -58,8 +58,6 @@ WSL2上で作業した方は，エクスプローラからWSL2にアクセスし
 
 スタートを押すと，インストールメディアの作成が始まります．
 
-## 備考
+## 参考文献
 
-[^1]: Proxmox VE 8.2から，自動インストールがサポートされるようになりました．
-
-[^2]: Proxmoxの無償版リポジトリにあります．
+- [Automated Installation - Proxmox VE](https://pve.proxmox.com/wiki/Automated_Installation)
