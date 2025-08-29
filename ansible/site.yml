@@ -6,4 +6,4 @@
   
   tasks:
     - ansible.builtin.import_tasks:
-        file: roles/proxmox/tasks/use-no-enterprise.yml
+        file: roles/pve/tasks/use-no-enterprise.yml
