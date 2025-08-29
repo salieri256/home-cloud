@@ -4,16 +4,27 @@
 
 ```shell
 sudo apt update
+sudo apt install software-properties-common
+sudo add-apt-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible
 ```
 
-PVEノードに無償版リポジトリを設定しましょう．
+タスク実行に必要なパッケージをインストールします．
+
+```shell
+sudo apt install python3-proxmoxer python3-requests
+ansible-galaxy collection install community.proxmox
+```
+
+PVEノードの初期セットアップをしましょう．
 管理用PCで以下のコマンドを実行します．
 
 ```shell
 ansible-playbook -i production site.yml
 ```
 
+これで，PVEクラスタを組むことができました．
+（実行直後はPVEノードにアクセスできないことがあります．）
 
 > [!NOTE]
 > 管理ノードにSSH接続をしたことがない場合，以下の警告が出力され処理が中断されます．
@@ -38,3 +49,5 @@ ansible-playbook -i production site.yml
 
 - [Ansible Documentation — Ansible Community Documentation](https://docs.ansible.com/ansible/latest/index.html)
 - [Ansible の使い方](https://zenn.dev/y_mrok/books/ansible-no-tsukaikata)
+- [community.proxmox.proxmox_cluster module – Create and join Proxmox VE clusters — Ansible Community Documentation](https://docs.ansible.com/ansible/latest/collections/community/proxmox/proxmox_cluster_module.html)
+- [community.proxmox.proxmox_cluster_join_info module – Retrieve the join information of the Proxmox VE cluster — Ansible Community Documentation](https://docs.ansible.com/ansible/latest/collections/community/proxmox/proxmox_cluster_join_info_module.html)
