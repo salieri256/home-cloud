@@ -2,8 +2,9 @@
 - name: Main
   hosts: all
   become: no
-  gather_facts: no
-  
-  tasks:
-    - ansible.builtin.import_tasks:
-        file: roles/pve/tasks/use-no-enterprise.yml
+  gather_facts: yes
+
+  roles:
+    - pve-node-repository
+    - pve-node-packages
+    - pve-cluster
