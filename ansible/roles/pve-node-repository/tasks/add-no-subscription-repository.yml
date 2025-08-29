@@ -1,0 +1,10 @@
+---
+- name: Add no-subscription repository
+  ansible.builtin.copy:
+    src: proxmox.sources
+    dest: /etc/apt/sources.list.d/
+
+- name: Add ceph no-subscription repository
+  ansible.builtin.copy:
+    src: ceph.sources
+    dest: /etc/apt/sources.list.d/

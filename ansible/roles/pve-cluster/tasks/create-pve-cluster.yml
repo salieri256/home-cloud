@@ -1,0 +1,9 @@
+---
+- name: Create Proxmox VE Cluster
+  community.proxmox.proxmox_cluster:
+    state: present
+    api_host: nonoka
+    api_user: root@pam
+    api_password: 1qaz!QAZ
+    cluster_name: "home-cloud"
+  when: inventory_hostname == "nonoka"

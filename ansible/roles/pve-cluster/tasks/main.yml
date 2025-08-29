@@ -1,0 +1,8 @@
+---
+- name: Create Proxmox VE Cluster
+  ansible.builtin.include_tasks:
+    file: create-pve-cluster.yml
+
+- name: Join Proxmox VE Cluster
+  ansible.builtin.include_tasks:
+    file: join-pve-cluster.yml

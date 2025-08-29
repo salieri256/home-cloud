@@ -1,0 +1,10 @@
+---
+- name: Main
+  hosts: all
+  become: no
+  gather_facts: yes
+
+  roles:
+    - pve-node-repository
+    - pve-node-packages
+    - pve-cluster
