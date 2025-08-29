@@ -1,0 +1,4 @@
+---
+- name: Use latest apt packages
+  ansible.builtin.include_tasks:
+    file: use-latest-apt-packages.yml
