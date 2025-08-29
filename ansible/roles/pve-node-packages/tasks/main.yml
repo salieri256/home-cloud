@@ -2,3 +2,7 @@
 - name: Use latest apt packages
   ansible.builtin.include_tasks:
     file: use-latest-apt-packages.yml
+
+- name: Add apt packages
+  ansible.builtin.include_tasks:
+    file: add-apt-packages.yml
