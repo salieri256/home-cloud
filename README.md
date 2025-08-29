@@ -3,6 +3,7 @@
 おうちクラウドの設定ファイル集
 
 - [Proxmox VE の自動インストール](./proxmox-auto-install/)
+- [PVEノードの自動セットアップ](./ansible/)
 
 ## 構成
 
