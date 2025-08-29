@@ -1,0 +1,9 @@
+---
+- name: Main
+  hosts: all
+  become: no
+  gather_facts: no
+  
+  tasks:
+    - ansible.builtin.import_tasks:
+        file: roles/proxmox/tasks/use-no-enterprise.yml
