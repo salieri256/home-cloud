@@ -1,0 +1,8 @@
+---
+- name: Remove enterprise repository
+  ansible.builtin.include_tasks:
+    file: remove-enterprise-repository.yml
+
+- name: Add no-subscription repository
+  ansible.builtin.include_tasks:
+    file: add-no-subscription-repository.yml
