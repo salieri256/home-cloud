@@ -1,0 +1,24 @@
+---
+- name: Get fingerprint of main node in Cluster
+  community.proxmox.proxmox_cluster_join_info:
+    api_host: nonoka
+    api_user: root@pam
+    api_password: 1qaz!QAZ
+  register: proxmox_cluster_join
+  delegate_to: nonoka
+  when: inventory_hostname != "nonoka"
+
+- name: Join node to "{{ cluster_name }}" cluster
+  community.proxmox.proxmox_cluster:
+    state: present
+    api_host: "{{ inventory_hostname }}"
+    api_user: root@pam
+    api_password: 1qaz!QAZ
+    master_ip: "{{ main_host_ip }}"
+    fingerprint: "{{ main_host_fp }}"
+    cluster_name: "{{ cluster_name }}"
+  vars:
+    main_host_ip: "{{ proxmox_cluster_join.cluster_join.nodelist[0].pve_addr }}"
+    main_host_fp: "{{ proxmox_cluster_join.cluster_join.nodelist[0].pve_fp }}"
+    cluster_name: "{{ proxmox_cluster_join.cluster_join.totem.cluster_name }}"
+  when: inventory_hostname != "nonoka"
