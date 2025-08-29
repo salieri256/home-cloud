@@ -1,9 +1,4 @@
 ---
-- name: Remove enterprise repository
-  ansible.builtin.file:
-    path: /etc/apt/sources.list.d/pve-enterprise.sources
-    state: absent
-
 - name: Add no-enterprise repository
   ansible.builtin.copy:
     src: proxmox.sources
