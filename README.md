@@ -4,6 +4,7 @@
 
 - [Proxmox VE の自動インストール](./proxmox-auto-install/)
 - [PVEノードの自動セットアップ](./ansible/)
+- [インフラリソースの構築と管理](./terraform/)
 
 ## 構成
 
